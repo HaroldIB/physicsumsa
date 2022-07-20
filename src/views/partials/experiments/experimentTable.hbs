@@ -1,0 +1,30 @@
+<table border="1">
+  <thead>
+    <tr>
+      <th>N.</th>
+      <th>ID</th>
+      <th>Times</th>
+      <th>Operations</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each experiments}}
+      <tr>
+        <td>
+          {{@index}}
+        </td>
+        <td>{{_id}}</td>
+        <td>
+          {{#each times}}
+            <p id="{{@index}}">{{this}}</p>
+          {{/each}}
+        </td>
+        <td>
+          <button>Edit</button>
+          <button>Delete</button>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+
+</table>
