@@ -4,7 +4,7 @@
   "description": "Proyecto para adquirir datos desde mongodb con nodejs usando EC6",
   "main": "index.js",
   "scripts": {
-    // "dev": "nodemon src/index.js --exec babel-node"
+
     "start": "node src/index.js"
   },
   "repository": {
