@@ -55,7 +55,9 @@ var createExperiment = /*#__PURE__*/function () {
             _context2.prev = 0;
             experiment = (0, _Experiment["default"])(req.body);
             _context2.next = 4;
-            return experiment.save();
+            return experiment.save().then(function (data) {
+              return res.json(data);
+            });
 
           case 4:
             res.redirect("/");

@@ -8,7 +8,7 @@ export const renderExperiment = async (req, res) => {
 export const createExperiment = async (req, res) => {
   try {
     const experiment = Experiment(req.body);
-    await experiment.save();
+    await experiment.save().then((data) => res.json(data));
     res.redirect("/");
   } catch (error) {
     console.log(error);
