@@ -3,6 +3,7 @@ import indexRoutes from "./routes/index.routes";
 import path from "path";
 import { create } from "express-handlebars";
 import morgan from "morgan";
+import exp from "constants";
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.use(express.urlencoded({ extended: false }));
 
 //routes
 app.use(indexRoutes);
-
+//STATIC FILES
+app.use(express.static(path.join(__dirname, "public")));
 export default app;

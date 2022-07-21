@@ -1,4 +1,5 @@
 import app from "./app";
-import "./database"
-app.listen(3000);
-console.log("Escuchando en el puerto", 3000);
+import "./database";
+import { PORT } from "./config";
+app.listen(PORT);
+console.log("Escuchando en el puerto", PORT);

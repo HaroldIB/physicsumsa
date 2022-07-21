@@ -1,10 +1,9 @@
 import { connect } from "mongoose";
+import { MONGODB_URI } from "./config";
 
 (async () => {
   try {
-    const db = await connect(
-      "mongodb+srv://harold:1234@cluster0.pwgpa.mongodb.net/?retryWrites=true&w=majority"
-    );
+    const db = await connect(MONGODB_URI);
     console.log("Conectado a MONGO ATLAS", db.connect.name);
   } catch (error) {
     console.log(error);
