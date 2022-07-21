@@ -22,6 +22,7 @@ app.engine(
 app.set("view engine", ".hbs");
 
 //midlewar
+app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 

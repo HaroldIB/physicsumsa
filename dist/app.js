@@ -29,6 +29,7 @@ app.engine(".hbs", (0, _expressHandlebars.create)({
 }).engine);
 app.set("view engine", ".hbs"); //midlewar
 
+app.use(_express["default"].json());
 app.use((0, _morgan["default"])("dev"));
 app.use(_express["default"].urlencoded({
   extended: false
