@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRU</title>
+    <!-- FONT OSWALD -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400&display=swap" rel="stylesheet">
+    <!-- CUstom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_main.css">
+</head>
+
+<body>
+        <!-- Añadimos una línea -->
+        <hr>
+        <h1>MOVIMIENTO RECTILÍNEO UNIFORME</h1>
+
+        <div class="controlSimulation">
+            <p id="textVelocidad">Velocidad:</p>
+            <input id="textBox" value="10" />
+            <br>
+            <button id="startSimulation">INICIAR</button>
+        </div>
+
+        <canvas id="canvas" width="1080" height="300">
+            Tu navegador no soporta CANVAS!
+        </canvas>
+
+        <form>
+            <button id="draw">DETENER</button>
+            <br>
+
+            <br>
+        </form>
+    </div>
+    <script>
+        function Particula(radio, color) {
+            this.radio = radio;
+            this.color = color;
+            this.x = 0;
+            this.y = 0;
+            this.vx = 0;
+            this.vy = 0;
+        }
+
+        Particula.prototype.draw = function (context) {
+            context.fillStyle = this.color;
+            context.beginPath();
+            context.globalCompositeOperation = "source-over";
+            context.arc(this.x, this.y, this.radio, 0, 2 * Math.PI, true);
+            context.closePath();
+            context.fill();
+        }   
+    </script>
+    <script>
+        //Evente que se ejecuta cada vez que se carga la página Web
+        window.addEventListener("load", eventWindowLoaded, false);
+        function eventWindowLoaded() {
+            canvasApp();
+        }
+        //Para la comptabilidad de Canvas con el Navegador
+        function canvasSupport() {
+            return Modernizr.canvas;
+        }
+        //Función Principal que se ejecuta al escuchar el evento
+        function canvasApp() {
+            //Inicialización del Canvas y los Elementos del HTML
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            var formElement = document.getElementById("textBox");
+            var startButton = document.getElementById("startSimulation");
+            //Declaración de Variables
+            var v = 10;
+            var paused = true;
+            var particula;
+            var t0;
+            var dt;
+            var t = 0;
+            var animId;
+            var animTime = 60;
+            var today = new Date();
+            //Variables para dibujar la Grilla
+            var xMin = 10;
+            var xMax = canvas.width - 10;
+            var yMin = 70;
+            var yMax = canvas.height - 10;
+            var xStep = 10;
+            var yStep = 10;
+
+            //Dibujando la Cuadricula
+            drawGrill();
+            drawScreen();
+            drawRule();
+            timeSimulation();
+
+            //Evento para escuchar el click del Butoon INICIAR
+            startButton.addEventListener("click", beginSimulation, false);
+            function beginSimulation(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                paused = false;
+                //Iniciamos el temporizador para el movimiento.
+                t0 = new Date().getTime();
+            }
+
+            //Evento para recuperar el texto del textBox de Velocidad
+            formElement.addEventListener("keyup", textBoxChanged, false);
+            function textBoxChanged(e) {
+                var target = e.target;
+                v = target.value;
+            }
+
+            //Función que realiza la animación
+            function animFrame() {
+                animId = requestAnimationFrame(animFrame, canvas);
+                if (!paused) {
+                    onTimer();
+                }
+            };
+            //Función para actualizar el tiempo de la animación.
+            function onTimer() {
+                var t1 = new Date().getTime();
+                dt = 0.001 * (t1 - t0);
+                t0 = t1;
+                t += dt;
+                console.log(dt, t, t0, animTime);
+                if (t < animTime) {
+                    move();
+                } else {
+                    stop();
+                }
+            }
+
+            //Función que realiza la animación.
+            function move() {
+                particula.vx = v;
+                particula.x = particula.x + particula.vx * dt;
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                drawScreen();
+                drawGrill();
+                drawRule();
+                timeSimulation();
+                particula.draw(context);
+            };
+
+            //Función para parar la animación.
+            function stop() {
+                cancelAnimationFrame(animId);
+            };
+
+            //Función para dibujar el título
+            function drawScreen() {
+                //background
+                context.fillStyle = "#ffffaa";
+                context.fillRect(0, 0, 1080, 60);
+                //text
+                //Hora
+                context.fillStyle = "#000000";
+                context.font = "10px _san";
+                context.fillText(today, 450, 10);
+                //Título
+                context.fillStyle = "#000000";
+                context.font = "25px _sans";
+                context.textBaseline = "top";
+                context.globalCompositeOperation = "source-over";
+                context.fillText("Movimiento Rectilíneo Uniforme", 400, 25);
+                //box
+                context.strokeStyle = "#000000";
+                context.strokeRect(5, 5, 1070, 50);
+            }
+            //Función para dibujaer la Regla/Riel
+            function drawRule() {
+                context.globalCompositeOperation = "source-over";
+                context.fillStyle = "#474b4e";
+                context.fillRect(20, 210, 1040, 50);
+
+                context.strokeStyle = "white";
+                context.lineWidth = 1;
+                for (let index = 0; index <= 100; index++) {
+                    context.beginPath();
+                    context.moveTo(60 + index * 10, 210);
+                    context.lineTo(60 + index * 10, 235);
+                    context.fillStyle = "white";
+                    context.font = "7px _sans";
+                    context.fillText(index, 55 + index * 10, 235);
+                    context.stroke();
+                    context.closePath();
+                }
+            }
+            //Funcion para dibujar Tiempo de simulacion
+            function timeSimulation() {
+                //background
+                context.fillStyle = "black";
+                context.fillRect(20, 260, 150, 30);
+                //text
+                //Hora
+                context.fillStyle = "white";
+                context.font = "15px _san";
+                context.fillText("Tiempo: " + t, 25, 265);
+            }
+
+            //Función para dibujar la cuadricula
+            function drawGrill() {
+                context.beginPath();
+                var imax = Math.floor((xMax - xMin) / xStep);
+                for (var i = 0; i <= imax; i++) {
+                    context.globalCompositeOperation = "destination-over";
+                    context.moveTo(xMin + xStep * i, yMin);
+                    context.lineTo(xMin + xStep * i, yMax);
+                }
+                var jmax = Math.floor((yMax - yMin) / yStep);
+                for (var j = 0; j <= jmax; j++) {
+                    context.moveTo(xMin, yMin + yStep * j);
+                    context.lineTo(xMax, yMin + yStep * j);
+                }
+                context.stroke();
+            }
+
+            //Inicialización del objeto partícula
+            particula = new Particula(20, "blue");
+            particula.x = 40;
+            particula.y = 190;
+            // Tomar en cuenta que la Velocidad es en pixeles por segundo
+            particula.vx = v;
+            particula.draw(context);
+            t = 0;
+            //Iniciando la animación
+            animFrame();
+        }
+    </script>
+</body>
+
+</html>

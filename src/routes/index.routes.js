@@ -6,6 +6,7 @@ import {
   renderExperimentEdit,
   editExperiment,
   deleteExperiment,
+  experimentSimulation,
 } from "../controllers/experiment.controller";
 
 const router = Router();
@@ -19,4 +20,5 @@ router.post("/experiment/:id/edit", editExperiment);
 
 router.get("/experiment/:id/delete", deleteExperiment);
 
+router.get("/experiment/:id/simulation", experimentSimulation);
 export default router;

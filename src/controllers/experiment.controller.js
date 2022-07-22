@@ -38,3 +38,9 @@ export const deleteExperiment = async (req, res) => {
   await Experiment.findByIdAndDelete(id);
   res.redirect("/");
 };
+
+export const experimentSimulation = async (req, res) => {
+  const experiment = await Experiment.findById(req.params.id).lean();
+  console.log(req.params.id);
+  res.render("simulation", { experiment: experiment });
+};

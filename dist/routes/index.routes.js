@@ -15,5 +15,6 @@ router.post("/experiment/add", _experiment.createExperiment);
 router.get("/experiment/:id/edit", _experiment.renderExperimentEdit);
 router.post("/experiment/:id/edit", _experiment.editExperiment);
 router.get("/experiment/:id/delete", _experiment.deleteExperiment);
+router.get("/experiment/:id/simulation", _experiment.experimentSimulation);
 var _default = router;
 exports["default"] = _default;

@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.renderExperimentEdit = exports.renderExperiment = exports.editExperiment = exports.deleteExperiment = exports.createExperiment = void 0;
+exports.renderExperimentEdit = exports.renderExperiment = exports.experimentSimulation = exports.editExperiment = exports.deleteExperiment = exports.createExperiment = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -183,3 +183,35 @@ var deleteExperiment = /*#__PURE__*/function () {
 }();
 
 exports.deleteExperiment = deleteExperiment;
+
+var experimentSimulation = /*#__PURE__*/function () {
+  var _ref6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(req, res) {
+    var experiment;
+    return _regenerator["default"].wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.next = 2;
+            return _Experiment["default"].findById(req.params.id).lean();
+
+          case 2:
+            experiment = _context6.sent;
+            console.log(req.params.id);
+            res.render("simulation", {
+              experiment: experiment
+            });
+
+          case 5:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+
+  return function experimentSimulation(_x11, _x12) {
+    return _ref6.apply(this, arguments);
+  };
+}();
+
+exports.experimentSimulation = experimentSimulation;
