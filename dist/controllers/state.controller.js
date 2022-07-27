@@ -151,7 +151,9 @@ var editStatePlanta = /*#__PURE__*/function () {
             state = _context4.sent;
             state.state = !state.state;
             _context4.next = 7;
-            return state.save();
+            return state.save().then(function (data) {
+              return res.json(data);
+            });
 
           case 7:
             _context4.next = 12;
