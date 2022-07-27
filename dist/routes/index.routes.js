@@ -23,6 +23,7 @@ router.get("/experiment/:id/simulation", _experiment.experimentSimulation); //AP
 
 router.post("/toggleDone/add", _state.createState);
 router.get("/toggleDone/62e1939cbc778c37755e34a7/edit", _state.editState);
+router.get("/toggleDone/62e1939cbc778c37755e34a7/obtener/planta", _state.obtenerStatePlanta);
 router.get("/toggleDone/62e1939cbc778c37755e34a7/edit/planta", _state.editStatePlanta);
 var _default = router;
 exports["default"] = _default;

@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.editStatePlanta = exports.editState = exports.createState = void 0;
+exports.obtenerStatePlanta = exports.editStatePlanta = exports.editState = exports.createState = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -93,7 +93,7 @@ var editState = /*#__PURE__*/function () {
 
 exports.editState = editState;
 
-var editStatePlanta = /*#__PURE__*/function () {
+var obtenerStatePlanta = /*#__PURE__*/function () {
   var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res) {
     var id, state;
     return _regenerator["default"].wrap(function _callee3$(_context3) {
@@ -129,8 +129,49 @@ var editStatePlanta = /*#__PURE__*/function () {
     }, _callee3, null, [[0, 9]]);
   }));
 
-  return function editStatePlanta(_x5, _x6) {
+  return function obtenerStatePlanta(_x5, _x6) {
     return _ref3.apply(this, arguments);
+  };
+}();
+
+exports.obtenerStatePlanta = obtenerStatePlanta;
+
+var editStatePlanta = /*#__PURE__*/function () {
+  var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res) {
+    var state;
+    return _regenerator["default"].wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.prev = 0;
+            _context4.next = 3;
+            return _State["default"].findById("62e1939cbc778c37755e34a7");
+
+          case 3:
+            state = _context4.sent;
+            state.state = !state.state;
+            _context4.next = 7;
+            return state.save();
+
+          case 7:
+            _context4.next = 12;
+            break;
+
+          case 9:
+            _context4.prev = 9;
+            _context4.t0 = _context4["catch"](0);
+            console.log(_context4.t0);
+
+          case 12:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4, null, [[0, 9]]);
+  }));
+
+  return function editStatePlanta(_x7, _x8) {
+    return _ref4.apply(this, arguments);
   };
 }();
 

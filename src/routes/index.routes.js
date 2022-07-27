@@ -15,6 +15,7 @@ import {
   createState,
   editState,
   editStatePlanta,
+  obtenerStatePlanta,
 } from "../controllers/state.controller";
 
 const router = Router();
@@ -40,6 +41,8 @@ router.get("/experiment/:id/simulation", experimentSimulation);
 router.post("/toggleDone/add", createState);
 
 router.get("/toggleDone/62e1939cbc778c37755e34a7/edit", editState);
-router.get("/toggleDone/62e1939cbc778c37755e34a7/edit/planta", editStatePlanta);
 
+router.get("/toggleDone/62e1939cbc778c37755e34a7/obtener/planta", obtenerStatePlanta);
+
+router.get("/toggleDone/62e1939cbc778c37755e34a7/edit/planta", editStatePlanta);
 export default router;
