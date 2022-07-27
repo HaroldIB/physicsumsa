@@ -1,14 +1,25 @@
 import Experiment from "../models/Experiment";
+import State from "../models/State";
+
 export const renderExperiment = async (req, res) => {
   const experiments = await Experiment.find().lean();
+  const state = await State.find().lean();
   console.log(experiments);
-  res.render("index", { experiments: experiments });
+  console.log(state);
+  res.render("index", { states: state, experiments: experiments });
+};
+
+export const obtenerExperiment = async (req, res) => {
+  const { id } = req.params;
+  await Experiment.findById(id)
+    .lean()
+    .then((data) => res.json(data));
 };
 
 export const createExperiment = async (req, res) => {
   try {
     const experiment = Experiment(req.body);
-    await experiment.save().then((data) => res.json(data));
+    await experiment.save();
     res.redirect("/");
   } catch (error) {
     console.log(error);

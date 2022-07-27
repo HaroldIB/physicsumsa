@@ -1,5 +1,15 @@
+{{#if states}}
+{{#each states}}
+    {{#if state}}
+      <a href="/toggleDone/62e1939cbc778c37755e34a7/edit" class="btn btn-danger">EXPERIMENTO EN PROCESO</a>
+    {{else}}
+      <a href="/toggleDone/62e1939cbc778c37755e34a7/edit" class="btn btn-success">INICIAR EXPERIMENTO</a>
+    {{/if}}
+  {{/each}}
+{{/if}}
+
 {{#if experiments}}
-  <table class="table table-bordered  table-hover table-dark">
+  <table class="table table-bordered table-hover table-dark">
     <thead>
       <tr>
         <th>N.</th>
@@ -21,9 +31,18 @@
             {{/each}}
           </td>
           <td>
-            <a href="/experiment/{{_id}}/delete" class="btn btn-danger">Delete</a>
-            <a href="/experiment/{{_id}}/edit" class="btn btn-success">Update</a>
-            <a href="/experiment/{{_id}}/simulation" class="btn btn-primary">Simulation</a>
+            <a
+              href="/experiment/{{_id}}/delete"
+              class="btn btn-danger"
+            >Delete</a>
+            <a
+              href="/experiment/{{_id}}/edit"
+              class="btn btn-success"
+            >Update</a>
+            <a
+              href="/experiment/{{_id}}/simulation"
+              class="btn btn-primary"
+            >Simulation</a>
           </td>
         </tr>
       {{/each}}
@@ -33,7 +52,7 @@
   <div class="h-100 d-flex align-items-center justify-content-center">
     <div class="text-center text-white">
       <h1>No hay experimentos</h1>
-      <img src="/icons/empty.svg" class="w-75">
+      <img src="/icons/empty.svg" class="w-75" />
     </div>
   </div>
 {{/if}}
