@@ -7,12 +7,15 @@ import {
   editExperiment,
   deleteExperiment,
   experimentSimulation,
+  plantaCreateExperiment,
 } from "../controllers/experiment.controller";
 
 const router = Router();
 router.get("/", renderExperiment);
 
 router.post("/experiment/add", createExperiment);
+
+router.post("/experiment/add/planta", plantaCreateExperiment);
 
 router.get("/experiment/:id/edit", renderExperimentEdit);
 

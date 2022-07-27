@@ -15,6 +15,15 @@ export const createExperiment = async (req, res) => {
   }
 };
 
+export const plantaCreateExperiment = async (req, res) => {
+  try {
+    const experiment = Experiment(req.body);
+    await experiment.save().then((data) => res.json(data));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const renderExperimentEdit = async (req, res) => {
   try {
     const experiment = await Experiment.findById(req.params.id).lean();
